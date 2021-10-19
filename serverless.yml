@@ -1,0 +1,70 @@
+service: mimoo-backend-challenge
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'sa-east-1'}
+  environment:
+    tableName: ${self:custom.MimooTableInfo.name}
+  iamRoleStatements: ${file(iam/MimooTableIAMfile.yml):MimooTableIAM}
+  memorySize: 128
+  timeout: 3
+  endpointType: regional
+  lambdaHashingVersion: 20201221
+
+resources:
+  Resources:
+    MimooTable: ${file(resources/MimooTableConfigFile.yml):MimooTableConfig}
+    CognitoUserPool: ${file(resources/MimooUserPoolFile.yml):CognitoUserPool}
+    CognitoUserPoolClient: ${file(resources/MimooClientPoolFile.yml):CognitoUserPoolClient}
+    MimooUserPoolDomain: ${file(resources/MimooUserPoolDomainFile.yml):MimooUserPoolDomain}
+    Authorizers: ${file(resources/MimooAuthorizers.yml):Authorizers}
+
+custom:
+  MimooTableInfo:
+    name: !Ref MimooTable
+    arn: !GetAtt MimooTable.Arn
+  # allowedHeaders:
+  #   - Content-Type
+  #   - Authorization
+
+functions:
+  index:
+    handler: src/handlers/index.handler
+    description: My function is alive
+    events:
+      - http:
+          path: /
+          method: GET
+
+  getTools:
+    handler: src/handlers/getTools/getTools.handler
+    description: Get all tools if no query is given or filter tools by tag query.
+    events:
+      - http:
+          path: /tools
+          method: GET
+          # authorizer:
+
+  createNewTool:
+    handler: src/handlers/createNewTool/createNewTool.handler
+    description: Add new tool to the database receiving a JSON as body request
+    events:
+      - http:
+          path: /tools
+          method: POST
+          # authorizer: MimooAuth
+
+  deleteToolById:
+    handler: src/handlers/deleteToolById/deleteToolById.handler
+    description: Delete tool with the same id as the path parameter :id
+    events:
+      - http:
+          path: /tools/{id}
+          method: DELETE
+          # authorizer: MimooAuth
+          request:
+            parameters:
+              paths:
+                id: true

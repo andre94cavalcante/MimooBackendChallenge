@@ -1,0 +1,9 @@
+MimooTableIAM:
+  - Effect: Allow
+    Action:
+      - dynamodb:PutItem
+      - dynamodb:GetItem
+      - dynamodb:DeleteItem
+      - dynamodb:Scan
+    Resource:
+      - ${self:custom.MimooTableInfo.arn}

@@ -1,0 +1,5 @@
+MimooUserPoolDomain:
+  Type: AWS::Cognito::UserPoolDomain
+  Properties:
+    Domain: mimooauth
+    UserPoolId: !Ref CognitoUserPool

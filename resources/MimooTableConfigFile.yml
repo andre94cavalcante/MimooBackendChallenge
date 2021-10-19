@@ -1,0 +1,11 @@
+MimooTableConfig:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: MimooDynamoVUTTR-${self:provider.stage}
+    BillingMode: PAY_PER_REQUEST
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: N
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH

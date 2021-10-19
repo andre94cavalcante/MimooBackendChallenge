@@ -1,0 +1,16 @@
+{
+  "name": "mimoochallenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.1009.0",
+    "serverless": "^2.63.0"
+  }
+}

@@ -1,0 +1,15 @@
+CognitoUserPoolClient:
+  Type: AWS::Cognito::UserPoolClient
+  Properties:
+    ClientName: ${self:provider.stage}-user-pool-client
+    SupportedIdentityProviders: ["COGNITO"]
+    AllowedOAuthFlowsUserPoolClient: true
+    AllowedOAuthFlows: ["code", "implicit"]
+    CallbackURLs:
+      ["https://q3mzd06097.execute-api.sa-east-1.amazonaws.com/dev/"]
+    DefaultRedirectURI: "https://q3mzd06097.execute-api.sa-east-1.amazonaws.com/dev/"
+    AllowedOAuthScopes:
+      ["email", "openid", "profile", "aws.cognito.signin.user.admin"]
+    GenerateSecret: false
+    UserPoolId:
+      Ref: CognitoUserPool
