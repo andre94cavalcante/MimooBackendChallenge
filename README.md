@@ -281,7 +281,19 @@ Ao clonar no projeto certifique-se de que possui o Nodejs e o NPM devidamente in
 npm install
 ```
 
-Ao entrar na [API](https://amhm84wqrj.execute-api.sa-east-1.amazonaws.com/dev), pode-se tentar utilizar as rotas, como exemplo "[/tools/](https://amhm84wqrj.execute-api.sa-east-1.amazonaws.com/dev/tools)", porém, será mostrada uma mensagem de erro, comprovando o funcionamento do Cognito para autenticação de usuário:
+Após isso, deve-se comentar os trechos referentes a autenticação e, assim, pode-se criar um novo projeto executando o comando
+
+```bash
+sls deploy
+```
+
+Posteriormente, deve-se descomentar os trechos de autenticação das funções, alterar o arn para o arn referente ao User Pool criado e repetir o comando
+
+```bash
+sls deploy
+```
+
+Ao entrar na [API](https://yvjmotzr7k.execute-api.sa-east-1.amazonaws.com/dev/), pode-se tentar utilizar as rotas, como exemplo "[/tools/](https://yvjmotzr7k.execute-api.sa-east-1.amazonaws.com/dev/tools/)", porém, será mostrada uma mensagem de erro, comprovando o funcionamento do Cognito para autenticação de usuário:
 
 ```json
 {
@@ -289,7 +301,7 @@ Ao entrar na [API](https://amhm84wqrj.execute-api.sa-east-1.amazonaws.com/dev), 
 }
 ```
 
-Sendo assim, é necessário [Registrar-se e efetuar Login](https://mimoodevchallenge.auth.sa-east-1.amazoncognito.com/login?client_id=3mc8ivn82kfca04j0t7t62utjo&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://amhm84wqrj.execute-api.sa-east-1.amazonaws.com/dev), para, posteriormente, copiar o "id_token" da URL e utilizá-lo no [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/), adicionar um Header "Authorization" com o valor de id_token.
+Sendo assim, é necessário [Registrar-se e efetuar Login](https://mimooauth.auth.sa-east-1.amazoncognito.com/login?client_id=382prkqppentjpf1mpv4jsldt1&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+profile&redirect_uri=https://www.mimoo.dev/), para, posteriormente, copiar o "id_token" da URL e utilizá-lo no [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/), adicionar um Header "Authorization" com o valor de id_token.
 Após isso, toda a aplicação funcionará sem problemas, com todas as rotas e funcionalidades requeridas pelo desafio, bem como mostrará que o processo de autenticação de usuário para utilização da API está funcionando.
 
 ### Autor - [André Cavalcante](https://andre94cavalcante.github.io/)

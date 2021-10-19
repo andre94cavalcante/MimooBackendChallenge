@@ -19,15 +19,14 @@ resources:
     CognitoUserPool: ${file(resources/MimooUserPoolFile.yml):CognitoUserPool}
     CognitoUserPoolClient: ${file(resources/MimooClientPoolFile.yml):CognitoUserPoolClient}
     MimooUserPoolDomain: ${file(resources/MimooUserPoolDomainFile.yml):MimooUserPoolDomain}
-    Authorizers: ${file(resources/MimooAuthorizers.yml):Authorizers}
 
 custom:
   MimooTableInfo:
     name: !Ref MimooTable
     arn: !GetAtt MimooTable.Arn
-  # allowedHeaders:
-  #   - Content-Type
-  #   - Authorization
+  allowedHeaders:
+    - Content-Type
+    - Authorization
 
 functions:
   index:
@@ -37,6 +36,10 @@ functions:
       - http:
           path: /
           method: GET
+          authorizer:
+            name: MimooAuth
+            arn: arn:aws:cognito-idp:sa-east-1:951583587598:userpool/sa-east-1_qFrMJ6XT4
+          headers: custom.allowedHeaders
 
   getTools:
     handler: src/handlers/getTools/getTools.handler
@@ -45,7 +48,10 @@ functions:
       - http:
           path: /tools
           method: GET
-          # authorizer:
+          authorizer:
+            name: MimooAuth
+            arn: arn:aws:cognito-idp:sa-east-1:951583587598:userpool/sa-east-1_qFrMJ6XT4
+          headers: custom.allowedHeaders
 
   createNewTool:
     handler: src/handlers/createNewTool/createNewTool.handler
@@ -54,7 +60,10 @@ functions:
       - http:
           path: /tools
           method: POST
-          # authorizer: MimooAuth
+          authorizer:
+            name: MimooAuth
+            arn: arn:aws:cognito-idp:sa-east-1:951583587598:userpool/sa-east-1_qFrMJ6XT4
+          headers: custom.allowedHeaders
 
   deleteToolById:
     handler: src/handlers/deleteToolById/deleteToolById.handler
@@ -63,7 +72,10 @@ functions:
       - http:
           path: /tools/{id}
           method: DELETE
-          # authorizer: MimooAuth
+          authorizer:
+            name: MimooAuth
+            arn: arn:aws:cognito-idp:sa-east-1:951583587598:userpool/sa-east-1_qFrMJ6XT4
+          headers: custom.allowedHeaders
           request:
             parameters:
               paths:

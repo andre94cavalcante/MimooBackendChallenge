@@ -1,9 +1,0 @@
-Authorizers:
-  Type: AWS::ApiGateway::Authorizer
-  Properties:
-    Name: MimooAuth
-    Type: COGNITO_USER_POOLS
-    IdentitySource: method.request.header.Authorization
-    ProviderARNs:
-      - !GetAtt CognitoUserPool.Arn
-    RestApiId: 8wiyb70yg3

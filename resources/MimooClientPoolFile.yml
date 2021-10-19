@@ -5,9 +5,8 @@ CognitoUserPoolClient:
     SupportedIdentityProviders: ["COGNITO"]
     AllowedOAuthFlowsUserPoolClient: true
     AllowedOAuthFlows: ["code", "implicit"]
-    CallbackURLs:
-      ["https://q3mzd06097.execute-api.sa-east-1.amazonaws.com/dev/"]
-    DefaultRedirectURI: "https://q3mzd06097.execute-api.sa-east-1.amazonaws.com/dev/"
+    CallbackURLs: ["https://www.mimoo.dev/"]
+    DefaultRedirectURI: "https://www.mimoo.dev/"
     AllowedOAuthScopes:
       ["email", "openid", "profile", "aws.cognito.signin.user.admin"]
     GenerateSecret: false
